@@ -60,9 +60,11 @@ void attachInterruptParam(pin_size_t interruptNumber, voidFuncPtrParam callback,
 			break;
 		case CHANGE:
 #if LT_RTL8720C
-			event = IRQ_FALL_RISE;
+			event = IRQ_FALL_RISE; // <- BUG  [ IRQ_FALL_RISE ] not defined, the compiler stops at this point with an error
+#elif LT_RTL8710B
+			event = IRQ_RISE;
 #else
-			LT_W("CHANGE interrupts not supported");
+			LT_W("CHANGE interrupts not supported !!!!!!");
 #endif
 			break;
 		default:
